@@ -24,6 +24,8 @@ postMessage('READY')
 onmessage = async ({ data: video }) => {
   const blinked = await service.handBlinked(video)
   
+  console.log('blinked', blinked);
+  
   if (!blinked) return
   
   postMessage({ blinked })
