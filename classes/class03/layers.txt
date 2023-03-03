@@ -1,0 +1,22 @@
+index.js -> é responsável por chamar todas as camadas, é o ponto de entrada da aplicação
+
+workers
+  -> é o processo em segundo plano
+  -> toda lógica PESADA (que envolva CPU)
+  -> tudo que pode travar a tela (for loop, ML, AI, processamento de imagens, filtros)
+  -> ele chama as regras de negocio da service
+  
+services
+  -> toda lógica de negócio
+  -> toda chamada externa (API, arquivos, bancos de dados)
+  
+views
+  -> toda iteração com o DOM, não deve ter regras de negócio (HTML, interface exibida para o usuário, assim caso a aplicação seja executada no backend podemos somente substituir essa camada)
+
+controllers
+  -> é a intermediária entre services e ou workers com as views, ela apenas intermedia a informação entre as duas camadas, não conhecendo as regras de negócio
+
+factories
+  -> é responsável por dar o start na aplicação, iniciando e instanciando as classes das outras camadas
+  -> retorna a função que inicializa o fluxo do componente
+  -> ex: nessa camada podemos importar os controllers, as views e os services, criar um mṕetodo initialize e instanciar todas essas importações, depois podemos ir no arquivo de entrada da aplicação e apenas chamar a factory, por que ela irá fazer todo o restante
